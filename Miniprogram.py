@@ -13,12 +13,23 @@ def draw_coordinate():
     canvas.create_text(460, 250, text="X")
     canvas.create_text(250, 40, text="Y")
 
+points = []
+def draw_triangle(event):
+    x, y = event.x, event.y
+    canvas.create_oval(x-3, y-3, x+3, y+3, fill='red')
+    points.append((x, y))
+    if len(points) == 3:
+        canvas.create_polygon(points, outline=random_color(), width=2, fill='')
+        points.clear()
+
 root = tk.Tk()
-root.title("数字+坐标系")
+root.title("数字+坐标系+画三角形")
 root.geometry("500x500")
 
 canvas = tk.Canvas(root, width=500, height=300)
 canvas.pack()
+canvas.bind('<Button-1>', draw_triangle)
+
 draw_coordinate()
 
 lbl = tk.Label(root, text="", font=('Arial', 50))
